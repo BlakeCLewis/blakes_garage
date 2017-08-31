@@ -1,6 +1,7 @@
 # blakes_garage
 
 A Radiant floor heating project for my garage.
+  I installed radiant floor heat in the garage years ago. I am createing the control system to monitor the system and eventially take control of it. 
 ## Parts
   * Raspberry pi Zero W
   * 6 - DS18b20 one-wire temperature sensor water proof - Amazon
