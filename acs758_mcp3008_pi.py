@@ -46,7 +46,7 @@ GPIO.setup(SPICS,   GPIO.OUT)
 # Current sensor connected to adc #0 & #1
 potentiometer_adc = 1;
 
-last_read = 0 # this keeps track of the last potentiometer value
+last_value = 0 # this keeps track of the last potentiometer value
 tolerance = 5 # to keep from being jittery we'll only change
 counter = 0
 try:
@@ -56,8 +56,8 @@ try:
      
      # read the analog pin
      ACS758 = readadc(potentiometer_adc, SPICLK, SPIMOSI, SPIMISO, SPICS)
-     # how much has it changed since the last read?
-     dawn = abs(ACS758 - last_read)
+     # how much has it changed since the last 'ACS758_changed' value?
+     dawn = abs(ACS758 - last_value)
      
      if ( dawn > tolerance ):
        ACS758_changed = True
@@ -68,9 +68,9 @@ try:
      if ( ACS758_changed and ACS758 > 5):
        ampre = (ACS758-520)*50/520.0
        print ACS758, '{:.2f}'.format(ampre)
+       last_value = ACS758
      
      # save the potentiometer reading for the next loop
-     last_read = ACS758
      counter += 1
      time.sleep(1)
 
