@@ -53,7 +53,8 @@ GPIO.setup(SPIMISO, GPIO.IN)
 GPIO.setup(SPICLK,  GPIO.OUT)
 GPIO.setup(SPICS,   GPIO.OUT)
 
-for i in range(6):
+for i in range(300):
+  print i
   vi = readadc(0, SPICLK, SPIMOSI, SPIMISO, SPICS)
   v0 = "%5.2f"% (4.25 * vi / 1024)
   print v0
@@ -63,7 +64,13 @@ for i in range(6):
   vk = readadc(2, SPICLK, SPIMOSI, SPIMISO, SPICS)
   v2 = "%5.2f"% (4.25 * vk / 1024)
   print v2
-  Vt = "%5.2f"% (4.25 * (vi+vj+vk) / 1024)
+  vl = readadc(3, SPICLK, SPIMOSI, SPIMISO, SPICS)
+  v3 = "%5.2f"% (4.25 * vl / 1024)
+  print v3
+  vm = readadc(4, SPICLK, SPIMOSI, SPIMISO, SPICS)
+  v4 = "%5.2f"% (4.25 * vm / 1024)
+  print v4
+  Vt = "%5.2f"% (4.25 * (vi+vj+vk+vl+vm) / 1024)
   print Vt
   print  '-----------------'
   t.sleep(10)
