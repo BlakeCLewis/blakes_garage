@@ -5,7 +5,7 @@
 #       SPICLK,   SPIMOSI, SPIMISO, SPICS
 #  py   clockpin, mosipin, misopin, cspin
 
-import time
+import time as t
 import os
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
@@ -18,7 +18,7 @@ def readadc(adcnum, clockpin, mosipin, misopin, cspin):
   GPIO.output(clockpin, False)  # start clock low
   GPIO.output(cspin, False)     # bring CS low
   commandout = adcnum
-  commandout |= 0x10  # start bit & differemtial indicator
+  commandout |= 0x18  # start bit & single ended indicator
   commandout <<= 3    # we only need to send 5 bits here
 
   for i in range(5):
@@ -53,12 +53,19 @@ GPIO.setup(SPIMISO, GPIO.IN)
 GPIO.setup(SPICLK,  GPIO.OUT)
 GPIO.setup(SPICS,   GPIO.OUT)
 
-blah1 = readadc(1, SPICLK, SPIMOSI, SPIMISO, SPICS)
-blah3 = readadc(3, SPICLK, SPIMOSI, SPIMISO, SPICS)
-blah5 = readadc(5, SPICLK, SPIMOSI, SPIMISO, SPICS)
-
-print blah1
-print blah3
-print blah5
+for i in range(6):
+  vi = readadc(0, SPICLK, SPIMOSI, SPIMISO, SPICS)
+  v0 = "%5.2f"% (4.25 * vi / 1024)
+  print v0
+  vj = readadc(1, SPICLK, SPIMOSI, SPIMISO, SPICS)
+  v1 = "%5.2f"% (4.25 * vj / 1024)
+  print v1
+  vk = readadc(2, SPICLK, SPIMOSI, SPIMISO, SPICS)
+  v2 = "%5.2f"% (4.25 * vk / 1024)
+  print v2
+  Vt = "%5.2f"% (4.25 * (vi+vj+vk) / 1024)
+  print Vt
+  print  '-----------------'
+  t.sleep(10)
 
 GPIO.cleanup() 
