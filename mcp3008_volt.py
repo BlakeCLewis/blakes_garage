@@ -72,7 +72,7 @@ for i in range(300):
   print v4
   Vt = "%5.2f"% (4.25 * (vi+vj+vk+vl+vm) / 1024)
   print Vt
-  print  '-----------------'
+  print  '-----'
   t.sleep(10)
 
 GPIO.cleanup() 
