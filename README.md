@@ -29,7 +29,7 @@ A Radiant floor heating project for my garage.
   * water pump
 
 ## 2 stage project 
-  * data aquasition and fail safe
+  * data acquisition and fail safe
      failure mode: gas water water heater standing pilot goes out, system still tries to heat floor. This stage will log 6 temperatures and system state changes.
   * system control
      This stage will remove the auastats and replace them with relays
